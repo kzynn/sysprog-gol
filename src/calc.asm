@@ -74,6 +74,7 @@ calc_cell:
 	rl a
 	rl a
 	mov r5, a
+	call check_alive
 	; cells below
 	inc r7
 	call check_alive
@@ -118,7 +119,6 @@ set_cell:
 	mov b, #08d
 	div ab 		; calc modulo, result in b register
 	mov a, b
-
 	add a, #70h
 	mov r0, a
 	mov a, @r0
@@ -128,13 +128,12 @@ set_cell:
 	mov b, #08d
 	div ab 		; calc modulo, result in b register
 	mov a, b
-
 	add a, #78h
 	mov r0, a	; store new memory location in r0
 
 	cjne r4, #03d, cell_is_dead
 	; cell is alive
-	mov a, r1
+	mov a, @r0
 	orl a, r5
 	mov @r0, a
 	ret
@@ -142,7 +141,7 @@ set_cell:
 	mov a, r5
 	cpl a		; invert sequence
 	mov r2, a	; move inverted to r2
-	mov a, r1
+	mov a, @r0
 	anl a, r2	; compare with inverted sequence
 	mov @r0, a
 	ret
