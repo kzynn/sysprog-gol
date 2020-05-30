@@ -10,7 +10,7 @@ IN2 EQU EIN1.2
 INRand EQU EIN1.3
 
 start:
-MOV EIN1, P1          ;-- lade P1 nach x020h
+MOV EIN1, P0          ;-- lade P0 nach x020h
 Mov C, Start          ;-- lade das 0. Bit in C
 JNC loadState         ;-- wenn C 0 ist, beginne mit laden aus der datenbank
 SJMP waitOneSconde    ;-- wenn noch nicht gestartet ist warte
