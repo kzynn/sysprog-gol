@@ -27,7 +27,7 @@ actual: x010
 new: x018
 
 ## DB
-x300h
+in RAM
 
 ## Team
 - Init + Input: Jan
