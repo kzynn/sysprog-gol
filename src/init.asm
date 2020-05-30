@@ -118,11 +118,49 @@ ljmp startlogic
 startLogic:
 
 
-org 300h
+org 40h
 table:
-db 009H, 0AH, 0BH, 0CH, 0DH, 0EH, 0FH, 1FH ; -- erster zustand   00
-db 0A0H, 01H, 02H, 03H, 04H, 05H, 06H, 01H ; -- zweiter zustand  01
-db 0B0H, 01H, 02H, 03H, 04H, 05H, 06H, 01H ; -- dritter zustand  10
-db 0C0H, 01H, 02H, 03H, 04H, 05H, 06H, 01H ; -- vierter zustand  11
+; -- erster zustand   00
+db 01100110b
+db 11001100b
+db 00000000b
+db 01100110b
+db 11001100b
+db 00000000b
+db 01100110b
+db 11001100b
+
+
+; -- erster zustand   01
+db 01000010b
+db 11000011b
+db 00100100b
+db 00000000b
+db 00000000b
+db 00100100b
+db 11000011b
+db 01000010b
+
+; -- erster zustand   10
+db 00000000b
+db 00000000b
+db 00001000b
+db 00110000b
+db 00001100b
+db 00010000b
+db 00000000b
+db 00000000b
+
+
+; -- erster zustand   11
+db 00000000b
+db 00010100b
+db 01010000b
+db 00000110b
+db 01100000b
+db 00001010b
+db 00101000b
+db 00000000b
+
 
 END
