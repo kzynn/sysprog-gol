@@ -33,9 +33,8 @@ mov P1, #0H
 
 ; calculate next row number
 MOV A, R2
-MOV B, #02h
-MUL AB
+RL A
 MOV R2, A
 
-JNZ display
+CJNE A, #01H, display
 call init
