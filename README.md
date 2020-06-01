@@ -18,8 +18,9 @@ Examples:
 1111 XXX1 -> waiting until last bit is 0, checking each seconde<br>
 
 ## Output
-Port 1 
-Port 2
+Port 1: Data of current row. 1 is on and 0 is off
+
+Port 2: Number of current row. 00000100 means third row.
 
 ## Field
 inti field: x028h - x2Fh
