@@ -312,14 +312,14 @@ db 00000000b
 
 
 ; -- erster zustand   01 Kegel
-db 01000010b
-db 11000011b
-db 00100100b
 db 00000000b
+db 01000000b
+db 11000000b
+db 00100000b
 db 00000000b
-db 00100100b
-db 11000011b
-db 01000010b
+db 00001000b
+db 00000110b
+db 00000100b
 
 ; -- erster zustand   10 Unruh(1)
 db 00000000b
