@@ -74,56 +74,57 @@ move:
 ;1. wert
 mov a, b ; -- lade b in a
 movc a, @a+dptr ;-- kopierer aus dem ram den a-ten eintrag
-mov 028H, a ;-- speicher den a-ten eintrag in den speicher
+mov 070H, a ;-- speicher den a-ten eintrag in den speicher
 inc b ;-- erhöhe b um 1
 
 ;2. wert
 mov a, b
 movc a, @a+dptr
-mov 029H, a
+mov 071H, a
 inc b
 
 ;3. wert
 mov a, b
 movc a, @a+dptr
-mov 02AH, a
+mov 072H, a
 inc b
 
 ;4. wert
 mov a, b
 movc a, @a+dptr
-mov 02BH, a
+mov 073H, a
 inc b
 
 ;5. wert
 mov a, b
 movc a, @a+dptr
-mov 02CH, a
+mov 074H, a
 inc b
 
 ;6. wert
 mov a, b
 movc a, @a+dptr
-mov 02DH, a
+mov 075H, a
 inc b
 
 ;7. wert
 mov a, b
 movc a, @a+dptr
-mov 02EH, a
+mov 076H, a
 inc b
 
 ;8. wert
 mov a, b
 movc a, @a+dptr
-mov 02FH, a
+mov 077H, a
 inc b
 
-ljmp CALC
+call display
 
 calc:
 	mov r7, #8d		; init row count with 8, start with first row
 	loop_cols:
+		call display
 		; loop trough cols
 		mov r6, #01h	; init col bit with 1
 		loop_rows:
@@ -141,7 +142,7 @@ calc:
 	inc r7					 ; increment row count
 	cjne r7, #16d, loop_cols ; end loop if r7=rowcount reaches 16
 	call shift
-	ajmp display
+	call display
 
 shift:
 	mov 78h, 70h
@@ -247,7 +248,7 @@ set_cell:
 
 ;-- Initialisire Zähler (Speicheradressen)--; 
 RAND:
-        MOV R1, #28h
+        MOV R1, #38h
 ANF:
 	CJNE R1, #30h, LOOP
 	JMP CALC
@@ -293,7 +294,7 @@ displayRow:
 	MOV R2, A
 	
 	CJNE A, #01H, displayRow
-	call CALC
+	ret
 
 org 40h
 table:
