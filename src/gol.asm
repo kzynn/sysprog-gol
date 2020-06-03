@@ -14,6 +14,7 @@ IN1 EQU EIN1.1
 IN2 EQU EIN1.2
 INRand EQU EIN1.3
 
+ZUF8R EQU 0x20
 
 start:
 MOV EIN1, P0 ;-- lade P0 nach x020h
@@ -59,7 +60,7 @@ JB IN1, secondestate ;-- wenn state 2
 JNB IN1, firststate  ;-- wenn state 1
 
 random:
-ljmp startlogic
+ljmp RAND
 
 
 loadState:
@@ -118,7 +119,38 @@ movc a, @a+dptr
 mov 02FH, a
 inc b
 
-ljmp startlogic
+ljmp CALC
+
+
+;-- Initialisire Zähler (Speicheradressen)--; 
+RAND:
+        MOV R1, #28h
+ANF:
+	CJNE R1, #30h, LOOP
+	JMP CALC
+LOOP:
+;-- Generiere ZahZufallszahl --;
+	CALL ZUFALL
+	MOV @R1, A
+;----------- CASE-ANWEISUNG-------------------------
+neu:	INC R1
+        jmp ANF
+;--------------------------------------------------
+
+
+; ------ Zufallszahlengenerator-----------------
+ZUFALL:	mov	A, ZUF8R   ; initialisiere A mit ZUF8R
+	jnz	ZUB
+	cpl	A
+	mov	ZUF8R, A
+ZUB:	anl	a, #10111000b
+	mov	C, P
+	mov	A, ZUF8R
+	rlc	A
+	mov	ZUF8R, A
+	ret
+
+CALC: 	ret
 
 
 startLogic:
@@ -168,6 +200,4 @@ db 00001010b
 db 00101000b
 db 00000000b
 END
-
-
 
