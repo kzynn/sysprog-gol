@@ -17,6 +17,8 @@ INRand EQU EIN1.3
 ZUF8R EQU 0x20
 
 start:
+MOV P1, #0h
+MOV P2, #0h
 MOV EIN1, P0 ;-- lade P0 nach x020h
 Mov C, Start ;-- lade das 0. Bit in C
 JNC loadState ;-- wenn C 0 ist, beginne mit laden aus der datenbank
@@ -124,7 +126,6 @@ call display
 calc:
 	mov r7, #8d		; init row count with 8, start with first row
 	loop_cols:
-		call display
 		; loop trough cols
 		mov r6, #01h	; init col bit with 1
 		loop_rows:
@@ -153,6 +154,7 @@ shift:
 	mov 7Dh, 75h
 	mov 7Eh, 76h
 	mov 7Fh, 77h
+	ret
 
 calc_cell:
 	; calc surrounding cells alive
