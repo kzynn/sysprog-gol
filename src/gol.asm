@@ -126,6 +126,7 @@ call display
 calc:
 	mov r7, #8d		; init row count with 8, start with first row
 	loop_cols:
+		call display
 		; loop trough cols
 		mov r6, #01h	; init col bit with 1
 		loop_rows:
@@ -144,16 +145,17 @@ calc:
 	cjne r7, #16d, loop_cols ; end loop if r7=rowcount reaches 16
 	call shift
 	call display
+	jmp calc
 
 shift:
-	mov 78h, 70h
-	mov 79h, 71h
-	mov 7Ah, 72h
-	mov 7Bh, 73h
-	mov 7Ch, 74h
-	mov 7Dh, 75h
-	mov 7Eh, 76h
-	mov 7Fh, 77h
+	mov 70h, 78h
+	mov 71h, 79h
+	mov 72h, 7Ah
+	mov 73h, 7Bh
+	mov 74h, 7Ch
+	mov 75h, 7Dh
+	mov 76h, 7Eh
+	mov 77h, 7Fh
 	ret
 
 calc_cell:
