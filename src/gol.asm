@@ -244,9 +244,6 @@ set_cell:
 	mov @r0, a
 	ret
 
-display:
-	;display new field
-
 
 ;-- Initialisire Zähler (Speicheradressen)--; 
 RAND:
@@ -276,6 +273,27 @@ ZUB:	anl	a, #10111000b
 	mov	ZUF8R, A
 	ret
 
+display:
+	mov R2, #001H ; Set row number to 1
+	MOV R0, #070H ; Address of first row
+
+displayRow:
+	mov P2, R2
+	mov A, @R0
+	mov P1, A
+	inc R0
+
+	; All pixels off
+	mov P2, #0H
+	mov P1, #0H
+	
+	; calculate next row number
+	MOV A, R2
+	RL A
+	MOV R2, A
+	
+	CJNE A, #01H, displayRow
+	call CALC
 
 org 40h
 table:
