@@ -121,6 +121,132 @@ inc b
 
 ljmp CALC
 
+calc:
+	mov r7, #8d		; init row count with 8, start with first row
+	loop_cols:
+		; loop trough cols
+		mov r6, #01h	; init col bit with 1
+		loop_rows:
+			; loop trough rows
+			mov a, r6	; shift col bit
+			rr a
+			mov r6, a
+			mov r5, #0d	; reset surrounding cell count
+
+			; do things
+			call calc_cell
+			call set_cell
+
+			cjne r6, #01h, loop_rows ; end loop if col bit has passed calculation for lowest bit
+	inc r7					 ; increment row count
+	cjne r7, #16d, loop_cols ; end loop if r7=rowcount reaches 16
+	call shift
+	ajmp display
+
+shift:
+	mov 78h, 70h
+	mov 79h, 71h
+	mov 7Ah, 72h
+	mov 7Bh, 73h
+	mov 7Ch, 74h
+	mov 7Dh, 75h
+	mov 7Eh, 76h
+	mov 7Fh, 77h
+
+calc_cell:
+	; calc surrounding cells alive
+	; row above
+	dec r7
+	call calc_current_row_adress
+	mov a, r6
+	rl a
+	mov r6, a
+	call check_alive
+	mov a, r6
+	rr a
+	mov r6, a
+	call check_alive
+	mov a, r6
+	rr a
+	mov r6, a
+	call check_alive
+	; cells left and right
+	inc r7
+	call calc_current_row_adress
+	call check_alive
+	mov a, r6
+	rl a
+	rl a
+	mov r6, a
+	call check_alive
+	; cells below
+	inc r7
+	call calc_current_row_adress
+	call check_alive
+	mov a, r6
+	rr a
+	mov r6, a
+	call check_alive
+	mov a, r6
+	rr a
+	mov r6, a
+	call check_alive
+	; clean up row and col bit registers
+	dec r7
+	mov a, r6
+	rl a
+	mov r6, a
+	ret
+
+calc_current_row_adress:
+	; moves current row adress in r0
+	; calc current row offset (modulo operation to prevent -1 and 9)
+	mov a, r7
+	mov b, #08d
+	div ab 		; calc modulo, result in b register
+
+	mov a, #70h ; start calc adress for curr row
+	add a, b
+	mov r0, a
+	ret
+
+check_alive:
+	; checks if a cell is alive and if so increments r5
+	mov a, @r0	; mov current row in a
+	anl a, r6	; and operation for selecting specific cell
+	jz skip_if_cell_dead
+	inc r5
+	skip_if_cell_dead:
+	ret
+
+set_cell:
+	; check value in r5 and set new value for cell in new field
+	; calc new memory adress for current row
+	mov a, r7	; mod because of edge cases
+	mov b, #08d
+	div ab 		; calc modulo, result in b register
+	mov a, b
+	add a, #78h
+	mov r0, a	; store new memory location in r0
+
+	cjne r5, #03d, cell_is_dead
+	; cell is alive
+	mov a, @r0
+	orl a, r6
+	mov @r0, a
+	ret
+	cell_is_dead:
+	mov a, r6
+	cpl a		; invert sequence
+	mov r1, a	; move inverted to r1
+	mov a, @r0
+	anl a, r1	; compare with inverted sequence
+	mov @r0, a
+	ret
+
+display:
+	;display new field
+
 
 ;-- Initialisire Zähler (Speicheradressen)--; 
 RAND:
@@ -149,11 +275,6 @@ ZUB:	anl	a, #10111000b
 	rlc	A
 	mov	ZUF8R, A
 	ret
-
-CALC: 	ret
-
-
-startLogic:
 
 
 org 40h
