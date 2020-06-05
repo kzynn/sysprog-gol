@@ -22,6 +22,14 @@ Port 1: Data of current row. 1 is on and 0 is off
 
 Port 2: Number of current row. 00000100 means third row.
 
+## Result
+| Name | Animation |
+| ----------- | ----------- |
+| Pedal | ![gif of figure pedal](img/pedal.gif) |
+| Kegel | ![gif of figure kegel](img/kegel.gif) |
+| Unruh | ![gif of figure unruh](img/unruh.gif) |
+| Strudel | ![gif of figure strudel](img/strudel.gif) |
+
 ## Field
 inti field: x028h - x2Fh
 actual: x010
