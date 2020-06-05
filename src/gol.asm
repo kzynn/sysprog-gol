@@ -122,9 +122,9 @@ movc a, @a+dptr
 mov 077H, a
 inc b
 
-call display
 
 calc:
+	call display
 	mov r7, #8d		; init row count with 8, start with first row
 	loop_cols:
 		call display
@@ -145,7 +145,6 @@ calc:
 	inc r7					 ; increment row count
 	cjne r7, #16d, loop_cols ; end loop if r7=rowcount reaches 16
 	call shift
-	call display
 	jmp calc
 
 shift:
