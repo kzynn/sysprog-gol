@@ -302,7 +302,7 @@ displayRow:
 
 org 40h
 table:
-; -- erster zustand   00 Pedal
+; -- erster zustand: 00 Pedal
 db 00000000b
 db 00011000b
 db 00110000b
@@ -312,8 +312,7 @@ db 00001100b
 db 00011000b
 db 00000000b
 
-
-; -- erster zustand   01 Kegel
+; -- zweiter Zustand: 01 Kegel
 db 00000000b
 db 00100000b
 db 01100000b
@@ -323,7 +322,7 @@ db 00001000b
 db 00000110b
 db 00000100b
 
-; -- erster zustand   10 Unruh(1)
+; -- dritter Zustand: 10 Unruh(1)
 db 00000000b
 db 00000000b
 db 00001000b
@@ -333,8 +332,7 @@ db 00010000b
 db 00000000b
 db 00000000b
 
-
-; -- erster zustand   11 Strudel
+; -- vierter Zustand: 11 Strudel
 db 00000000b
 db 00010100b
 db 01010000b
@@ -343,5 +341,5 @@ db 01100000b
 db 00001010b
 db 00101000b
 db 00000000b
-END
 
+END
