@@ -74,53 +74,16 @@ JB IN2, bigger ;-- wenn state 3 oder 4
 JNB IN2, lower ;-- wenn state 1 oder 2
 
 move:
-;1. wert
-mov a, b ; -- lade b in a
+;-- load values from db into correct adresses in ram
+mov r0, #70h
+
+loadByte:
+mov a, b 		;-- lade b in a
 movc a, @a+dptr ;-- kopiere aus dem ram den a-ten eintrag
-mov 070H, a ;-- speicher den a-ten eintrag in den speicher
-inc b ;-- erhöhe b um 1
-
-;2. wert
-mov a, b
-movc a, @a+dptr
-mov 071H, a
-inc b
-
-;3. wert
-mov a, b
-movc a, @a+dptr
-mov 072H, a
-inc b
-
-;4. wert
-mov a, b
-movc a, @a+dptr
-mov 073H, a
-inc b
-
-;5. wert
-mov a, b
-movc a, @a+dptr
-mov 074H, a
-inc b
-
-;6. wert
-mov a, b
-movc a, @a+dptr
-mov 075H, a
-inc b
-
-;7. wert
-mov a, b
-movc a, @a+dptr
-mov 076H, a
-inc b
-
-;8. wert
-mov a, b
-movc a, @a+dptr
-mov 077H, a
-inc b
+mov @r0, a 		;-- speicher den a-ten eintrag in den speicher
+inc b 			;-- erhöhe b um 1
+inc r0			;-- erhöhe speicheradresse um 1
+cjne r0, #78h, loadByte
 
 
 calc:
