@@ -31,12 +31,15 @@ Port 2: Number of current row. 00000100 means third row.
 | Strudel | ![gif of figure strudel](img/strudel.gif) |
 
 ## Field
-inti field: x028h - x2Fh
-actual: x010
-new: x018
+- current Field: 70h
+- new Field: 78h
 
 ## DB
-in RAM
+four predefined start figures: 
+- pedal
+- kegel
+- unruh
+- strudel
 
 ## Team
 - Init + Input: Jan
