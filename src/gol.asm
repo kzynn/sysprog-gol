@@ -7,6 +7,7 @@
 cseg at 0h
 LJMP start
 ORG 100H
+
 ; Eingabevektor
 EIN1 EQU 20H
 START EQU EIN1.0
@@ -75,7 +76,7 @@ JNB IN2, lower ;-- wenn state 1 oder 2
 move:
 ;1. wert
 mov a, b ; -- lade b in a
-movc a, @a+dptr ;-- kopierer aus dem ram den a-ten eintrag
+movc a, @a+dptr ;-- kopiere aus dem ram den a-ten eintrag
 mov 070H, a ;-- speicher den a-ten eintrag in den speicher
 inc b ;-- erhöhe b um 1
 
@@ -250,28 +251,31 @@ set_cell:
 	ret
 
 
-;-- Initialisire Zähler (Speicheradressen)--; 
+;-- Initialisiere Zähler (Speicheradressen)--;
 RAND:
-        MOV R1, #38h
+    MOV R1, #70h
 ANF:
-	CJNE R1, #30h, LOOP
+	CJNE R1, #78h, LOOP
 	JMP CALC
 LOOP:
 ;-- Generiere ZahZufallszahl --;
 	CALL ZUFALL
 	MOV @R1, A
 ;----------- CASE-ANWEISUNG-------------------------
-neu:	INC R1
-        jmp ANF
+neu:
+	INC R1
+	jmp ANF
 ;--------------------------------------------------
 
 
 ; ------ Zufallszahlengenerator-----------------
-ZUFALL:	mov	A, ZUF8R   ; initialisiere A mit ZUF8R
+ZUFALL:
+	mov	A, ZUF8R   ; initialisiere A mit ZUF8R
 	jnz	ZUB
 	cpl	A
 	mov	ZUF8R, A
-ZUB:	anl	a, #10111000b
+ZUB:
+	anl	a, #10111000b
 	mov	C, P
 	mov	A, ZUF8R
 	rlc	A
@@ -291,18 +295,19 @@ displayRow:
 	; All pixels off
 	mov P2, #0H
 	mov P1, #0H
-	
+
 	; calculate next row number
 	MOV A, R2
 	RL A
 	MOV R2, A
-	
+
 	CJNE A, #01H, displayRow
 	ret
 
+
 org 40h
 table:
-; -- erster zustand: 00 Pedal
+; -- erster Zustand: 00 Pedal
 db 00000000b
 db 00011000b
 db 00110000b
