@@ -1,5 +1,10 @@
 # sysprog-gol
 
+## Run
+- Import the [project file](src/game-of-life.mcu8051ide) into the [MCU 8051 IDE](https://sourceforge.net/projects/mcu8051ide/)
+- Load the virtual hardware files from the directory [src/vhc](src/vhc) with Virtual HW > Load into the IDE
+- Start the Simulator
+
 ## Input
 Port 0
 
