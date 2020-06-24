@@ -1,4 +1,6 @@
-# sysprog-gol
+# Game of Life for 8051 microcontroller
+
+Project for microcontroller programming course at DHBW Karlsruhe.
 
 ## Run
 - Import the [project file](src/game-of-life.mcu8051ide) into the [MCU 8051 IDE](https://sourceforge.net/projects/mcu8051ide/)
