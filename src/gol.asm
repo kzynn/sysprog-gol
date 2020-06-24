@@ -90,7 +90,6 @@ calc:
 	call display
 	mov r7, #8d		; init row count with 8, start with first row
 	loop_cols:
-		call display
 		; loop trough cols
 		mov r6, #01h	; init col bit with 1
 		loop_rows:
